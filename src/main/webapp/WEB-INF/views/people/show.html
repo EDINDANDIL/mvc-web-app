@@ -2,17 +2,27 @@
 <html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Person</title>
+    <title>Страница пользователя</title>
 </head>
 <body>
 
-<p th:text="${person.getName()}">VALUE</p>
-<p th:text="${person.getId()}">VALUE</p>
+<p th:text="${person.getPersonName() + ', ' + person.getDateOfBirth}">VALUE</p>
+<div th:if="${relatedBooks.isEmpty()}">
+    <p th:text="'Пользователь пока не взял ни одной книги'"></p>
+</div>
+<div th:unless="${relatedBooks.isEmpty()}">
+    <p th:text="'Книги пользователя:'"></p>
+    <div th:each="book : ${relatedBooks}">
+        <p th:text="${book.getBookName() + ', ' + book.getAuthor() + ', ' + book.getYear()}">user</p>
+    </div>
+</div>
+<hr/>
+<form th:method="GET" th:action="@{/people/{id}/edit(id=${person.getUserId()})}">
+    <input type="submit" value="Редактировать"/>
+</form>
 
-<a th:href="@{/people/{id}/edit(id=${person.getId()})}">Edit</a>
-
-<form th:method="DELETE" th:action="@{/people/{id}(id=${person.getId()})}">
-    <input type="submit" value="Delete this person"/>
+<form th:method="DELETE" th:action="@{/people/{id}(id=${person.getUserId()})}">
+    <input type="submit" value="Удалить пользователя"/>
 </form>
 </body>
 </html>
