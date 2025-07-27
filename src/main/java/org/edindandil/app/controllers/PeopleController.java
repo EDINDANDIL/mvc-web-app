@@ -17,7 +17,6 @@ public class PeopleController {
     private final PersonDAO personDAO;
     private final PersonValidator personValidator;
 
-    // Spring создаст бин personDAO (он помечен как Component), затем внедрит его сюда
     @Autowired
     public PeopleController(PersonDAO personDAO, PersonValidator personValidator) {
         this.personDAO = personDAO;
@@ -30,18 +29,14 @@ public class PeopleController {
         return "people/index";
     }
 
-    @GetMapping("/{id}") // Мы можем при переходе указать параметр id
-    // Соответственно вот эту переменную извлечем из URL
+    @GetMapping("/{id}")
     public String show(@PathVariable("id") int userId, Model model) {
         model.addAttribute("person", personDAO.show(userId))
-                // хочу, чтобы метод вернул список List<Book>
                 .addAttribute("relatedBooks", personDAO.getRelatedBooks(userId));
         return "people/show";
     }
 
     @GetMapping("/new")
-    // В данный момент создавать объект через @ModelAttribute("person") Person person нужно,
-    // чтобы spring привязал форму thymeleaf (поля) к данному объекту, чтобы при нажатии create было понятно, куда присвоить эти значения
     public String newPerson(@ModelAttribute("person") Person person) {
         return "people/new";
     }
@@ -69,20 +64,10 @@ public class PeopleController {
         return "people/edit";
     }
 
-    /*
-    Внутри поля ввода (так как работают только Get и Post запросы) находится скрытый ввод с методом Patch,
-    который нужно обработать(создать фильтр, об этом я узнаю потом). В конфиге я добавил фильтр, который позволяет обработать
-    нужные мне методы.
-     */
     @PatchMapping("/{id}")
     public String update(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult,
                          @PathVariable("id") int userId) {
 
-        /*
-        Проблема: если редактировать имеющегося пользователя с именем name и менять ему имя,
-        то метод validate сочтет это как дублирование, поэтому надо использовать валидацию тогда, когда
-        id текущего пользователя и id пользователя, которого мы подали не совпадают
-         */
         if (userId != personDAO.getIdByName(person.getPersonName())) {
             personValidator.validate(person,  bindingResult);
         }
