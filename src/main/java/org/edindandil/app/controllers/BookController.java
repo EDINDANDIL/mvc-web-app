@@ -34,8 +34,7 @@ public class BookController {
         return "books/index";
     }
 
-    @GetMapping("/{id}") // Мы можем при переходе указать параметр id
-    // Соответственно вот эту переменную извлечем из URL
+    @GetMapping("/{id}") 
     public String show(@PathVariable("id") int bookId, Model model, @ModelAttribute("person") Person person) {
         model.addAttribute("book", bookDAO.show(bookId))
                 .addAttribute("people", personDAO.index())
@@ -53,8 +52,6 @@ public class BookController {
     public String create(@ModelAttribute("book") @Valid Book book,
                          BindingResult bindingResult) {
 
-//        personValidator.validate(person, bindingResult);
-
         if (bindingResult.hasErrors())
             return "books/new";
 
@@ -68,11 +65,7 @@ public class BookController {
         return "books/edit";
     }
 
-    /*
-    Внутри поля ввода (так как работают только Get и Post запросы) находится скрытый ввод с методом Patch,
-    который нужно обработать(создать фильтр, об этом я узнаю потом). В конфиге я добавил фильтр, который позволяет обработать
-    нужные мне методы.
-     */
+
     @PatchMapping("/{id}")
     public String update(@ModelAttribute("book") @Valid Book book, BindingResult bindingResult,
                          @PathVariable("id") int bookId) {
