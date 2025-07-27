@@ -43,7 +43,6 @@ public class BookDAO {
                 new BeanPropertyRowMapper<>(Person.class)).stream().findAny().orElse(null);
     }
 
-    // По идее должно вернуть мне true или false, в зависимости от того, есть ли id в данной колонке или нет
     public boolean isEmpty(int bookId) {
         return jdbcTemplate.query("select books.userid from books where bookid=?", new Object[]{bookId},new BeanPropertyRowMapper<>(Book.class)).isEmpty();
     }
