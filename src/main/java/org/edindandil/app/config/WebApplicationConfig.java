@@ -65,7 +65,6 @@ public class WebApplicationConfig implements WebMvcConfigurer {
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         // Тут я укажу всю инфу о бд
-        // Но так писать плохо !
         dataSource.setDriverClassName(Objects.requireNonNull(environment.getProperty("driver")));
         dataSource.setUrl(environment.getProperty("url"));
         dataSource.setUsername(environment.getProperty("user"));
@@ -73,7 +72,6 @@ public class WebApplicationConfig implements WebMvcConfigurer {
         return dataSource;
     }
 
-    // Теперь можно создать этот объект, подавая туда dataSource
     @Bean
     public JdbcTemplate jdbcTemplate(DataSource dataSource) {
         return new JdbcTemplate(dataSource);
