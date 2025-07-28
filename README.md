@@ -36,5 +36,4 @@
 | **API**        | REST (CRUD: GET, POST, PUT, DELETE)                                                           |
 | **Валидация**  | Bean Validation (`jakarta.validation`), Validator (`org.springframework.validation.Validator`)|
 
-#### **5. Как запустить проект**  
 
