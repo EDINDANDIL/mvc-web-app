@@ -13,7 +13,7 @@
   - **Контроллеры** (`@Controller`) обрабатывают запросы, отвечают за навигацию.
   - **Модель** (сущности `Person`, `Book`).  
   - **Представление** (Thymeleaf-шаблоны) рендерит HTML.  
-- **DAO (Data Access Object)** – работа с БД через обёртку JDBC API `JdbcTemplate`.  
+- **DAO (Data Access Object)** – работа с БД через обёртку JDBC API `JdbcTemplate` с классами `PersonDAO` и `BookDAO`, инкапсулирующие логику взаимодействия с БД.  
 
 #### **2. Основные технологии**  
 - **Spring Framework** – основа приложения:  
