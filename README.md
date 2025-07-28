@@ -1,44 +1,38 @@
-# Employee Management System - Spring MVC Web Application
+### **Краткое описание проекта**  
 
-This project demonstrates a modern web application for employee management built with Spring MVC, Thymeleaf and PostgreSQL. It implements core Spring features with clean architecture.
+Данный проект представляет собой **веб-приложение на Java**, использующий **Spring Framework** в качестве основы. Приложение использует стиль **REST-архитектуру** для взаимодействия с клиентом и реализует **паттерн MVC** через модуль **Spring MVC**. Для работы с базой данных (**PostgreSQL**) применён **DAO-паттерн** с использованием **Spring JDBC (JdbcTemplate)**.  
 
-## Features
-* Full CRUD operations for employee management
-* PostgreSQL database integration with Spring Data JPA
-* Thymeleaf templates with Bootstrap styling
-* Form validation (server-side and client-side)
-* Pagination and sorting of employee data
-* Logging with SLF4J and Logback
+### **Ключевые аспекты реализации**  
 
-## Technologies
-* Spring Boot 3.1
-* Spring MVC
-* Spring Data JPA
-* Thymeleaf template engine
-* PostgreSQL 15
-* Bootstrap 5
-* Maven
-* Lombok
-* MapStruct (for DTO mapping)
+#### **1. Архитектура и паттерны**  
+- **REST** – API приложения построено в REST-стиле:  
+  - Использование HTTP-методов (GET, POST, PUT, DELETE).  
+  - Ресурсо-ориентированные URL (`/users`, `/products`).  
+- **MVC (Model-View-Controller)** – реализован через **Spring MVC**:  
+  - **Контроллеры** (`@Controller`, `@RestController`) обрабатывают запросы.  
+  - **Модель** (сущности `User`, `Product`, сервисы `UserService`) содержит бизнес-логику.  
+  - **Представление** (Thymeleaf-шаблоны) рендерит HTML.  
+- **DAO (Data Access Object)** – работа с БД через `JdbcTemplate` и репозитории (`UserRepository`).  
 
-## Getting Started
+#### **2. Основные технологии**  
+- **Spring Framework** – основа приложения:  
+  - **Spring Core (DI, IoC)** – управление зависимостями (`@Autowired`, `@Component`).  
+  - **Spring MVC** – обработка HTTP-запросов (`@GetMapping`, `@PostMapping`).  
+  - **Spring JDBC** – упрощённая работа с БД (`JdbcTemplate`).  
+  - **Spring Validation** – валидация данных (`@Valid`, `@Size`, `@NotNull`).  
+- **Thymeleaf** – шаблонизация HTML.  
+- **PostgreSQL** – реляционная СУБД для хранения данных.  
 
-To get started with this project, you will need to have the following installed on your local machine:
+#### **3. Работа с данными**  
+- **JDBC API + JdbcTemplate** – абстракция над "сырым" JDBC для удобного выполнения SQL-запросов.  
+- **Валидация** – встроенная (`@Valid`, `@Email`) и кастомная (например, аннотация `@UniqueUsername`).  
 
-* JDK 17+
-* Maven 3.9+
-* PostgreSQL 15+
+#### **4. Стек проекта**  
+| Категория       | Технологии / Компоненты                                                                 |
+|----------------|---------------------------------------------------------------------------------------|
+| **Backend**    | Java, Spring (Core, MVC, JDBC, Validation)                                            |
+| **Frontend**   | Thymeleaf (рендеринг HTML на сервере)                                                 |
+| **База данных**| PostgreSQL, Spring JDBC (JdbcTemplate)                                                |
+| **API**        | REST (CRUD: GET, POST, PUT, DELETE)                                                   |
+| **Валидация**  | Bean Validation (`jakarta.validation`), кастомные аннотации                           |
 
-### Installation Steps:
-
-1. Clone the repository:
-```bash
-git clone https://github.com/EDINDANDIL/mvc-web-app.git
-cd mvc-web-app
-```
-2. Set up your database
-```bash
-spring.datasource.url=jdbc:postgresql://localhost:5432/employee_management
-spring.datasource.username=your_username
-spring.datasource.password=your_password
-```
